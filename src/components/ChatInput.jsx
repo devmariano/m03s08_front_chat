@@ -16,7 +16,7 @@ export default function ChatInput() {
         <input
           type="text"
           placeholder="type your message here"
-          value="texto"
+          value="digite sua mensagem aqui..."
         />
         <button type="submit">
           <IoMdSend />

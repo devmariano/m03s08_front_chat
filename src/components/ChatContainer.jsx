@@ -22,11 +22,24 @@ export default function ChatContainer() {
         <Logout />
       </div>
       <div className="chat-messages">
+      <div className="message">
+              <p>username:</p>
+                <div className="content ">
+                  <p># Entrou na sala #</p>
+                </div>
+              </div>
 
               <div className="message">
               <p>username:</p>
                 <div className="content ">
-                  <p>Aqui entram as mensagens</p>
+                  <p>Olá como vocês estão?</p>
+                </div>
+              </div>
+
+              <div className="message">
+              <p>particiante 1 para username:</p>
+                <div className="content ">
+                  <p>Estamos bem! e você?</p>
                 </div>
               </div>
       </div>
@@ -81,7 +94,7 @@ const Container = styled.div`
     .message {
       display: flex;
       align-items: center;
-      color: #7F00FF;
+      color: #FFFF00;
       .content {
         max-width: 40%;
         overflow-wrap: break-word;
