@@ -8,14 +8,14 @@ export default function ChatContainer() {
   return (
     <Container>
       <div className="chat-header">
-        <div className="user-details">
-          <div className="avatar">
+        <div className="room-details">
+          <div className="room-avatar">
             <img
-              src=""
+              src="https://icons-for-free.com/iconfiles/png/512/beer-131982518583696551.png"
               alt=""
             />
           </div>
-          <div className="username">
+          <div className="room">
             <h3>Nome da sala</h3>
           </div>
         </div>
@@ -61,16 +61,17 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
-    .user-details {
+    background-color: #00000020;
+    .room-details {
       display: flex;
       align-items: center;
       gap: 1rem;
-      .avatar {
+      .room-avatar {
         img {
           height: 3rem;
         }
       }
-      .username {
+      .room {
         h3 {
           color: white;
         }
