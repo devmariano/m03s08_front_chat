@@ -14,20 +14,20 @@ export default function Login() {
         <form action="" >
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>snappy</h1>
+            <h1>trindade</h1>
           </div>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Insira seu apelido"
             name="username"
             min="3"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Insira sua senha"
             name="password"
           />
-          <button type="submit">Log In</button>
+          <button type="submit">Acessar</button>
           <span>
             Não tem conta ? <Link to="/register">Crie uma.</Link>
           </span>

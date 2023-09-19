@@ -1,5 +1,3 @@
-import React from "react";
-
 import { BiPowerOff } from "react-icons/bi";
 import styled from "styled-components";
 

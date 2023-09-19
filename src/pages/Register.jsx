@@ -14,34 +14,34 @@ export default function Register() {
         <form action="" >
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>snappy</h1>
+            <h1>trindade</h1>
           </div>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Escolha um apelido"
             name="username"
           />
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Digite seu email"
             name="email"
 
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Insira uma senha"
             name="password"
 
           />
           <input
             type="password"
-            placeholder="Confirm Password"
+            placeholder="Repita sua senha"
             name="confirmPassword"
 
           />
-          <button type="submit">Create User</button>
+          <button type="submit">Criar usuário</button>
           <span>
-            Already have an account ? <Link to="/login">Login.</Link>
+            Já tem conta ? <Link to="/login">Acesse aqui.</Link>
           </span>
         </form>
       </FormContainer>
