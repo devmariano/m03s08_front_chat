@@ -1,10 +1,19 @@
 import { BiPowerOff } from "react-icons/bi";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function Logout() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Remova o nickname do localStorage
+    localStorage.removeItem("nickname");
+    // Redirecione o usuário para a página de login
+    navigate("/login");
+  };
 
   return (
-    <Button >
+    <Button onClick={handleLogout}>
       <BiPowerOff />
     </Button>
   );
