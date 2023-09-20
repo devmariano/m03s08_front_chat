@@ -1,10 +1,22 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 
 
 export default function Chat() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Verifique se o nickname está no localStorage
+    const nickname = localStorage.getItem("nickname");
+
+    if (!nickname) {
+      // Se o nickname não estiver definido, redirecione para a página de login
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
     <>

@@ -1,47 +1,46 @@
-
+import { useState } from "react";
+import { useNavigate  } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
+export default function Nickname() {
+  // Verifique se o usuário já tem um apelido definido
+  const [nickname, setNickname] = useState(""); // Use o estado para armazenar o apelido
+  const navigate = useNavigate(); // Obtém a função de navegação
 
-
-export default function Register() {
-
+  const handleNicknameSubmit = (e) => {
+    e.preventDefault();
+    // Valide o apelido, armazene-o no estado ou envie para o servidor, dependendo da sua lógica
+    // Armazene o apelido no localStorage
+    localStorage.setItem("nickname", nickname);
+    
+    // Se o apelido for válido, redirecione o usuário para a página do chat
+    if (nickname.trim() !== "") {
+      // Redirecionar para a página de chat
+      console.log('entrando no chat');
+      navigate("/"); // Use a função de navegação para redirecionar
+    } else {
+      // Exibir uma mensagem de erro ou validar o apelido
+    }
+  };
 
   return (
     <>
       <FormContainer>
-        <form action="" >
+        <form onSubmit={handleNicknameSubmit}>
           <div className="brand">
             <img src={Logo} alt="logo" />
             <h1>trindade</h1>
           </div>
           <input
             type="text"
-            placeholder="Escolha um apelido"
+            placeholder="Insira seu apelido"
             name="username"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            minLength="3"
           />
-          <input
-            type="email"
-            placeholder="Digite seu email"
-            name="email"
-
-          />
-          <input
-            type="password"
-            placeholder="Insira uma senha"
-            name="password"
-
-          />
-          <input
-            type="password"
-            placeholder="Repita sua senha"
-            name="confirmPassword"
-          />
-          <button type="submit">Criar usuário</button>
-          <span>
-            Já tem conta ? <Link to="/login">Acesse aqui.</Link>
-          </span>
+          <button type="submit">Entrar</button>
         </form>
       </FormContainer>
     </>
@@ -77,7 +76,7 @@ const FormContainer = styled.div`
     gap: 2rem;
     background-color: #00000076;
     border-radius: 2rem;
-    padding: 3rem 5rem;
+    padding: 5rem;
   }
   input {
     background-color: transparent;
