@@ -1,6 +1,7 @@
 import { IoMdSend } from "react-icons/io";
 import Panic from "../assets/panic.jpg";
 import styled from "styled-components";
+import { useState } from "react";
 
 
 export default function ChatInput() {
@@ -8,6 +9,8 @@ export default function ChatInput() {
     // Redirecione para o Google ou para outra funcionalidade quando o botão "Panic" for clicado
     window.location.href = "https://www.google.com";
   };
+
+  const [message, setMessage] = useState("")
   
   return (
     <Container>
@@ -18,8 +21,9 @@ export default function ChatInput() {
       <form className="input-container" >
         <input
           type="text"
-          placeholder="type your message here"
-          value="digite sua mensagem aqui..."
+          placeholder="digite sua mensagem aqui"
+          value={message}
+          onChange={e => setMessage(e.value)}
         />
         <button type="submit">
           <IoMdSend />
