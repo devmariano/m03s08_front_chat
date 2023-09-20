@@ -1,57 +1,52 @@
-
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
+import DynamicAvatar from "./DynamicAvatar";
 
 export default function Contacts() {
-  const image = ["https://api.multiavatar.com/4532.svg","https://api.multiavatar.com/12342.svg","https://api.multiavatar.com/12555.svg"]
- 
+  const [nickname, setNickname] = useState(""); // Estado para armazenar o nickname do usuário
+
+  // Função para buscar o nickname no localStorage ao carregar o componente
+  useEffect(() => {
+    const storedNickname = localStorage.getItem("nickname");
+    if (storedNickname) {
+      setNickname(storedNickname);
+    }
+  }, []); // A lista de dependências vazia garante que isso só acontecerá uma vez, quando o componente for montado
+
+  // Lista de nicknames dos contatos
+  const contacts = ["fulano", "joao", "maria"];
+
   return (
     <>
-     
-        <Container>
-          <div className="brand">
-            <img src={Logo} alt="logo" />
-            <h3>Trindade</h3>
-          </div>
-          <div className="contacts">
+      <Container>
+        <div className="brand">
+          <img src={Logo} alt="logo" />
+          <h3>Trindade</h3>
+        </div>
 
-                <div className="contact">
-                  <div className="avatar">
-                    <img
-                      src={image[0]}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>participante 1</h3>
-                  </div>
-                </div>
-
-                <div className="contact">
-                  <div className="avatar">
-                    <img
-                      src={image[1]}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>participante 2</h3>
-                  </div>
-                </div>
-
-          </div>
-          <div className="current-user">
-            <div className="avatar">
-              <img
-                src={image[2]}
-                alt="avatar"
-              />
+        <div className="contacts">
+          {contacts.map((contact) => (
+            <div className="contact" key={contact}>
+              <div className="avatar">
+                <DynamicAvatar nickname={contact} />
+              </div>
+              <div className="username">
+                <h3>{contact}</h3>
+              </div>
             </div>
-            <div className="username">
-              <h2>seu username</h2>
-            </div>
+          ))}
+        </div>
+
+        <div className="current-user">
+          <div className="avatar">
+            <DynamicAvatar nickname={nickname} />
           </div>
-        </Container>
+          <div className="username">
+            <h2>{nickname}</h2>
+          </div>
+        </div>
+      </Container>
     </>
   );
 }

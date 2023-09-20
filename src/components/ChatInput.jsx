@@ -1,16 +1,19 @@
-import { FaSmileWink } from "react-icons/fa";
 import { IoMdSend } from "react-icons/io";
+import Panic from "../assets/panic.jpg";
 import styled from "styled-components";
 
 
 export default function ChatInput() {
+  const handlePanicClick = () => {
+    // Redirecione para o Google ou para outra funcionalidade quando o botão "Panic" for clicado
+    window.location.href = "https://www.google.com";
+  };
   
   return (
     <Container>
-      <div className="button-container">
-      <div className="emoji">
-          <FaSmileWink onClick={console.log('panic!')} />
-        </div>
+      <div className="button-container" onClick={handlePanicClick}>
+      <img src={Panic} alt="panic" />
+
       </div>
       <form className="input-container" >
         <input
@@ -32,6 +35,7 @@ const Container = styled.div`
   grid-template-columns: 5% 95%;
   background-color: #080420;
   padding: 0 2rem;
+
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
@@ -41,15 +45,9 @@ const Container = styled.div`
     align-items: center;
     color: white;
     gap: 1rem;
-    .emoji {
-      position: relative;
-      svg {
-        font-size: 1.5rem;
-        color: #ffff00c8;
-        cursor: pointer;
-      }
-      
-      }
+    img {
+      cursor: pointer;
+      height: 2rem;
     }
   }
   .input-container {
@@ -83,6 +81,7 @@ const Container = styled.div`
       align-items: center;
       background-color: #9a86f3;
       border: none;
+      cursor: pointer;
       @media screen and (min-width: 720px) and (max-width: 1080px) {
         padding: 0.3rem 1rem;
         svg {
