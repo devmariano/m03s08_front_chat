@@ -1,9 +1,45 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import Logout from "./Logout";
 
 
 export default function ChatContainer() {
+
+  const [messages, setMessages] = useState([]); // Estado para armazenar as mensagens
+
+  // Simule o recebimento das mensagens do backend (você pode usar useEffect para isso)
+  useEffect(() => {
+    // Simule o recebimento das mensagens do backend (substitua isso pela lógica real de consumo do backend)
+    const simulatedMessages = [
+      {
+        "from": "joao",
+        "to": "Todos",
+        "text": "entra na sala...",
+        "type": "status",
+        "time": "07:50:55"
+      },
+      {
+        "to": "Todos",
+        "text": "ola pessoas !",
+        "type": "message",
+        "from": "joao",
+        "time": "07:51:29"
+    },
+    {
+      "to": "joao",
+      "text": "fala joao como esta cara? ",
+      "type": "message",
+      "from": "fulano",
+      "time": "07:52:30"
+  },
+      // ... outras mensagens
+    ];
+
+    setMessages(simulatedMessages);
+  }, []); // Executa apenas uma vez quando o componente é montado. apagar quando for integrar
+
+
 
   return (
     <Container>
@@ -21,28 +57,22 @@ export default function ChatContainer() {
         </div>
         <Logout />
       </div>
+
       <div className="chat-messages">
-      <div className="message">
-              <p>username:</p>
-                <div className="content ">
-                  <p># Entrou na sala #</p>
-                </div>
-              </div>
-
-              <div className="message">
-              <p>username:</p>
-                <div className="content ">
-                  <p>Olá como vocês estão?</p>
-                </div>
-              </div>
-
-              <div className="message">
-              <p>particiante 1 para username:</p>
-                <div className="content ">
-                  <p>Estamos bem! e você?</p>
-                </div>
-              </div>
+        {/* Renderize as mensagens aqui */}
+        {messages.map((message, index) => (
+  <div
+    key={index}
+    className={`message ${message.type === 'status' ? 'status' : ''}`}
+  >
+    <p>{`(${message.time}) ${message.from} para ${message.to}: `}</p>
+    <div className="content">
+      <p>{`${message.text}`}</p>
+    </div>
+  </div>
+))}
       </div>
+
       <ChatInput  />
     </Container>
   );
@@ -97,7 +127,8 @@ const Container = styled.div`
       align-items: center;
       color: #FFFF00;
       .content {
-        max-width: 40%;
+        display: flex;
+        max-width: 70%;
         overflow-wrap: break-word;
         padding: 1rem;
         font-size: 1.1rem;
@@ -114,6 +145,11 @@ const Container = styled.div`
         background-color: #4f04ff21;
       }
     }
+    /* Estilo para mensagens de status */
+        .status {
+        background-color: #ffffff15; /* Defina a cor de fundo desejada */
+        /* Outros estilos, como cor de texto, podem ser ajustados aqui */
+      }
     .recieved {
       justify-content: flex-start;
       .content {
