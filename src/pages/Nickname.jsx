@@ -55,7 +55,12 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(43,8,117,1) 35%, rgba(121,57,189,1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(43, 8, 117, 1) 35%,
+    rgba(121, 57, 189, 1) 100%
+  );
   .brand {
     display: flex;
     align-items: center;

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 export default function ChatInput({ addMessage }) {
   const [messageText, setMessageText] = useState("");
-  const { selectedContact } = useAuth(); 
+  const { selectedContact } = useAuth();
 
   const nickname = localStorage.getItem("nickname");
 

@@ -1,15 +1,12 @@
-
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 
-
 export default function Login() {
-
   return (
     <>
       <FormContainer>
-        <form action="" >
+        <form action="">
           <div className="brand">
             <img src={Logo} alt="logo" />
             <h1>trindade</h1>
@@ -43,7 +40,12 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(43,8,117,1) 35%, rgba(121,57,189,1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(43, 8, 117, 1) 35%,
+    rgba(121, 57, 189, 1) 100%
+  );
   .brand {
     display: flex;
     align-items: center;

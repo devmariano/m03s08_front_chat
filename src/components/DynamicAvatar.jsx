@@ -15,5 +15,5 @@ export default function DynamicAvatar({ nickname }) {
 
 DynamicAvatar.propTypes = {
   nickname: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-    .isRequired, 
+    .isRequired,
 };
