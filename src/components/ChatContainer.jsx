@@ -2,11 +2,31 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import Logout from "./Logout";
+// import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
 
 
 export default function ChatContainer() {
-
+  // const { nickname } = useAuth();
   const [messages, setMessages] = useState([]); // Estado para armazenar as mensagens
+  // const [messageText, setMessageText] = useState(""); // Estado para a mensagem a ser enviada
+
+  // const handleSendMessage = () => {
+  //   if (messageText.trim() === "") {
+  //     // Trate a mensagem vazia, exiba um erro ou evite o envio
+  //     return;
+  //   }
+
+  //   const newMessage = {
+  //     from: nickname,
+  //     to: selectedContact, // Use o contato selecionado como destinatário
+  //     text: messageText,
+  //     type: "message",
+  //     time: new Date().toLocaleTimeString(),
+  //   };
+
+  //   setMessages((prevMessages) => [...prevMessages, newMessage]);
+  //   setMessageText(""); // Limpa o campo de entrada de mensagem após o envio
+  // };
 
   // Simule o recebimento das mensagens do backend (você pode usar useEffect para isso)
   useEffect(() => {
@@ -39,7 +59,9 @@ export default function ChatContainer() {
     setMessages(simulatedMessages);
   }, []); // Executa apenas uma vez quando o componente é montado. apagar quando for integrar
 
-
+  const addMessage = (message) => {
+    setMessages([...messages, message]);
+  };
 
   return (
     <Container>
@@ -73,7 +95,7 @@ export default function ChatContainer() {
 ))}
       </div>
 
-      <ChatInput  />
+      <ChatInput addMessage={addMessage} /> {/* Passe a função addMessage como prop */}
     </Container>
   );
 }

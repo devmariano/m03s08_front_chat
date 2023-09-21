@@ -1,26 +1,26 @@
 import { useState } from "react";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
+import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
 
 export default function Nickname() {
-  // Verifique se o usuário já tem um apelido definido
-  const [nickname, setNickname] = useState(""); // Use o estado para armazenar o apelido
-  const navigate = useNavigate(); // Obtém a função de navegação
+  const { setNickname } = useAuth(); // Obtenha a função setNickname do contexto
+  const navigate = useNavigate();
+
+  const [nickname, setLocalNickname] = useState(""); // Estado local para o apelido
 
   const handleNicknameSubmit = (e) => {
     e.preventDefault();
-    // Valide o apelido, armazene-o no estado ou envie para o servidor, dependendo da sua lógica
-    // Armazene o apelido no localStorage
-    localStorage.setItem("nickname", nickname);
-    
-    // Se o apelido for válido, redirecione o usuário para a página do chat
+
+    // Valide o apelido aqui
+
     if (nickname.trim() !== "") {
-      // Redirecionar para a página de chat
-      console.log('entrando no chat');
-      navigate("/"); // Use a função de navegação para redirecionar
+      localStorage.setItem("nickname", nickname);
+      setNickname(nickname); // Atualize o estado global com o novo apelido
+      navigate("/"); // Redirecione o usuário para a página de chat
     } else {
-      // Exibir uma mensagem de erro ou validar o apelido
+      // Trate erros ou exiba uma mensagem de validação
     }
   };
 
@@ -37,7 +37,7 @@ export default function Nickname() {
             placeholder="Insira seu apelido"
             name="username"
             value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
+            onChange={(e) => setLocalNickname(e.target.value)}
             minLength="3"
           />
           <button type="submit">Entrar</button>
