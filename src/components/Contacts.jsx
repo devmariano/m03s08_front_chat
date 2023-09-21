@@ -3,16 +3,25 @@ import styled from "styled-components";
 import Logo from "../assets/logo.png";
 import DynamicAvatar from "./DynamicAvatar";
 import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
+import { contacts } from "../data/contacts"; // Importe os contatos
 
 export default function Contacts() {
   const [nickname, setNickname] = useState(""); // Estado para armazenar o nickname do usuário
   const { setSelectedContact, selectedContact } = useAuth(); // Adicione setSelectedContact e selectedContact ao contexto
 
-  const contacts = [
-    { id: 1, Nick: "fulano" },
-    { id: 2, Nick: "joao" },
-    { id: 3, Nick: "maria" },
-  ];
+  // const contacts = [
+  //   { 
+  //     id: 1, 
+  //     Nick: "fulano" 
+  //   },
+  //   { 
+  //     id: 2, 
+  //     Nick: "joao" 
+  //   },
+  //   { id: 3, 
+  //     Nick: "maria" 
+  //   },
+  // ];
 
   const handleContactClick = (contact) => {
     if (selectedContact === contact.Nick) {
@@ -46,19 +55,20 @@ export default function Contacts() {
         <div className="contacts">
           {contacts.map((contact) => (
             <div
-              className={`contact ${
-                selectedContact === contact.Nick ? "selected" : ""
-              }`}
-              key={contact.id} // Usar o id como chave única
-              onClick={() => handleContactClick(contact)}
-            >
-              <div className="avatar">
-                <DynamicAvatar nickname={contact.Nick} />
-              </div>
-              <div className="username">
-                <h3>{contact.Nick}</h3>
-              </div>
+            className={`contact ${
+              selectedContact === contact.Nick ? "selected" : ""
+            }`}
+            key={contact.id} // Usar o id como chave única
+            onClick={() => handleContactClick(contact)}
+          >
+            <div className="avatar">
+              <DynamicAvatar nickname={contact.Nick} /> {/* Use contact.Nick em vez de contact.Nick */}
             </div>
+            <div className="username">
+              <h3>{contact.Nick}</h3> {/* Use contact.Nick em vez de contact.Nick */}
+            </div>
+          </div>
+            
           ))}
         </div>
 

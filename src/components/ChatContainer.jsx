@@ -2,58 +2,18 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import Logout from "./Logout";
-// import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
+import { simulatedMessages } from "../data/simulatedMessages"; 
+
 
 export default function ChatContainer() {
-  // const { nickname } = useAuth();
+
   const [messages, setMessages] = useState([]); // Estado para armazenar as mensagens
-  // const [messageText, setMessageText] = useState(""); // Estado para a mensagem a ser enviada
 
-  // const handleSendMessage = () => {
-  //   if (messageText.trim() === "") {
-  //     // Trate a mensagem vazia, exiba um erro ou evite o envio
-  //     return;
-  //   }
-
-  //   const newMessage = {
-  //     from: nickname,
-  //     to: selectedContact, // Use o contato selecionado como destinatário
-  //     text: messageText,
-  //     type: "message",
-  //     time: new Date().toLocaleTimeString(),
-  //   };
-
-  //   setMessages((prevMessages) => [...prevMessages, newMessage]);
-  //   setMessageText(""); // Limpa o campo de entrada de mensagem após o envio
-  // };
 
   // Simule o recebimento das mensagens do backend (você pode usar useEffect para isso)
   useEffect(() => {
     // Simule o recebimento das mensagens do backend (substitua isso pela lógica real de consumo do backend)
-    const simulatedMessages = [
-      {
-        from: "joao",
-        to: "Todos",
-        text: "entra na sala...",
-        type: "status",
-        time: "07:50:55",
-      },
-      {
-        to: "Todos",
-        text: "ola pessoas !",
-        type: "message",
-        from: "joao",
-        time: "07:51:29",
-      },
-      {
-        to: "joao",
-        text: "fala joao como esta cara? ",
-        type: "message",
-        from: "fulano",
-        time: "07:52:30",
-      },
-      // ... outras mensagens
-    ];
+
 
     setMessages(simulatedMessages);
   }, []); // Executa apenas uma vez quando o componente é montado. apagar quando for integrar
@@ -84,8 +44,8 @@ export default function ChatContainer() {
           <div
             key={index}
             className={`message ${message.type === "status" ? "status" : ""}`}
-          >
-            <p>{`(${message.time}) ${message.from} para ${message.to}: `}</p>
+          > <span className="info">{`(${message.time})`}</span>
+            <p>{`${message.from} para ${message.to}: `}</p>
             <div className="content">
               <p>{`${message.text}`}</p>
             </div>
@@ -146,11 +106,17 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       color: #ffff00;
+      font-size: 1.1rem;
+      .info {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        color: #d1d1d1;
+      }
       .content {
         display: flex;
         max-width: 70%;
         overflow-wrap: break-word;
-        padding: 1rem;
+        padding: 0.8rem;
         font-size: 1.1rem;
         border-radius: 1rem;
         color: #d1d1d1;

@@ -23,7 +23,7 @@ export default function ChatInput({ addMessage }) {
       // Enviar a mensagem para o ChatContainer
       addMessage({
         from: nickname,
-        to: selectedContact, // Modifique para o destinatário desejado
+        to: selectedContact, 
         text: messageText,
         type: "message",
         time: new Date().toLocaleTimeString(),
