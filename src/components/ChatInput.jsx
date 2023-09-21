@@ -2,32 +2,49 @@ import { IoMdSend } from "react-icons/io";
 import Panic from "../assets/panic.jpg";
 import styled from "styled-components";
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import PropTypes from "prop-types";
 
+export default function ChatInput({ addMessage }) {
+  const [messageText, setMessageText] = useState("");
+  const { selectedContact } = useAuth();
 
-export default function ChatInput() {
+  const nickname = localStorage.getItem("nickname");
+
   const handlePanicClick = () => {
     // Redirecione para o Google ou para outra funcionalidade quando o botão "Panic" for clicado
     window.location.href = "https://www.google.com";
   };
 
-  const [message, setMessage] = useState("")
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const submitForm = (e) => {
-    setMessage("");
-  }
-  
+    if (messageText.trim() !== "") {
+      // Enviar a mensagem para o ChatContainer
+      addMessage({
+        from: nickname,
+        to: selectedContact, 
+        text: messageText,
+        type: "message",
+        time: new Date().toLocaleTimeString(),
+      });
+
+      // Limpar o campo de entrada
+      setMessageText("");
+    }
+  };
+
   return (
     <Container>
       <div className="button-container" onClick={handlePanicClick}>
-      <img src={Panic} alt="panic" />
-
+        <img src={Panic} alt="panic" />
       </div>
-      <form className="input-container" onSubmit={submitForm}>
+      <form className="input-container" onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="digite sua mensagem aqui"
-          value={message}
-          onChange={e => setMessage(e.target.value)}
+          placeholder="Digite sua mensagem aqui"
+          value={messageText}
+          onChange={(e) => setMessageText(e.target.value)}
         />
         <button type="submit">
           <IoMdSend />
@@ -36,6 +53,10 @@ export default function ChatInput() {
     </Container>
   );
 }
+
+ChatInput.propTypes = {
+  addMessage: PropTypes.func.isRequired, // addMessage deve ser uma função obrigatória
+};
 
 const Container = styled.div`
   display: grid;

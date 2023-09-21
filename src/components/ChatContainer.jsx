@@ -2,44 +2,25 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
 import Logout from "./Logout";
+import { simulatedMessages } from "../data/simulatedMessages"; 
 
 
 export default function ChatContainer() {
 
   const [messages, setMessages] = useState([]); // Estado para armazenar as mensagens
 
+
   // Simule o recebimento das mensagens do backend (você pode usar useEffect para isso)
   useEffect(() => {
     // Simule o recebimento das mensagens do backend (substitua isso pela lógica real de consumo do backend)
-    const simulatedMessages = [
-      {
-        "from": "joao",
-        "to": "Todos",
-        "text": "entra na sala...",
-        "type": "status",
-        "time": "07:50:55"
-      },
-      {
-        "to": "Todos",
-        "text": "ola pessoas !",
-        "type": "message",
-        "from": "joao",
-        "time": "07:51:29"
-    },
-    {
-      "to": "joao",
-      "text": "fala joao como esta cara? ",
-      "type": "message",
-      "from": "fulano",
-      "time": "07:52:30"
-  },
-      // ... outras mensagens
-    ];
+
 
     setMessages(simulatedMessages);
   }, []); // Executa apenas uma vez quando o componente é montado. apagar quando for integrar
 
-
+  const addMessage = (message) => {
+    setMessages([...messages, message]);
+  };
 
   return (
     <Container>
@@ -57,23 +38,22 @@ export default function ChatContainer() {
         </div>
         <Logout />
       </div>
-
       <div className="chat-messages">
         {/* Renderize as mensagens aqui */}
         {messages.map((message, index) => (
-  <div
-    key={index}
-    className={`message ${message.type === 'status' ? 'status' : ''}`}
-  >
-    <p>{`(${message.time}) ${message.from} para ${message.to}: `}</p>
-    <div className="content">
-      <p>{`${message.text}`}</p>
-    </div>
-  </div>
-))}
+          <div
+            key={index}
+            className={`message ${message.type === "status" ? "status" : ""}`}
+          > <span className="info">{`(${message.time})`}</span>
+            <p>{`${message.from} para ${message.to}: `}</p>
+            <div className="content">
+              <p>{`${message.text}`}</p>
+            </div>
+          </div>
+        ))}
       </div>
-
-      <ChatInput  />
+      <ChatInput addMessage={addMessage} />{" "}
+      {/* Passe a função addMessage como prop */}
     </Container>
   );
 }
@@ -125,12 +105,18 @@ const Container = styled.div`
     .message {
       display: flex;
       align-items: center;
-      color: #FFFF00;
+      color: #ffff00;
+      font-size: 1.1rem;
+      .info {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        color: #d1d1d1;
+      }
       .content {
         display: flex;
         max-width: 70%;
         overflow-wrap: break-word;
-        padding: 1rem;
+        padding: 0.8rem;
         font-size: 1.1rem;
         border-radius: 1rem;
         color: #d1d1d1;
@@ -146,10 +132,10 @@ const Container = styled.div`
       }
     }
     /* Estilo para mensagens de status */
-        .status {
-        background-color: #ffffff15; /* Defina a cor de fundo desejada */
-        /* Outros estilos, como cor de texto, podem ser ajustados aqui */
-      }
+    .status {
+      background-color: #ffffff15; /* Defina a cor de fundo desejada */
+      /* Outros estilos, como cor de texto, podem ser ajustados aqui */
+    }
     .recieved {
       justify-content: flex-start;
       .content {

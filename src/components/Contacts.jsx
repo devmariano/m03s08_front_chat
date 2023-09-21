@@ -2,20 +2,47 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
 import DynamicAvatar from "./DynamicAvatar";
+import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
+import { contacts } from "../data/contacts"; // Importe os contatos
 
 export default function Contacts() {
   const [nickname, setNickname] = useState(""); // Estado para armazenar o nickname do usuário
+  const { setSelectedContact, selectedContact } = useAuth(); // Adicione setSelectedContact e selectedContact ao contexto
 
-  // Função para buscar o nickname no localStorage ao carregar o componente
+  // const contacts = [
+  //   { 
+  //     id: 1, 
+  //     Nick: "fulano" 
+  //   },
+  //   { 
+  //     id: 2, 
+  //     Nick: "joao" 
+  //   },
+  //   { id: 3, 
+  //     Nick: "maria" 
+  //   },
+  // ];
+
+  const handleContactClick = (contact) => {
+    if (selectedContact === contact.Nick) {
+      setSelectedContact("Todos");
+    } else {
+      setSelectedContact(contact.Nick);
+    }
+  };
+
+  //somente para testar se o selectedcontact esta sendo atribuido ao context
+  // useEffect(() => {
+  //   console.log("Contato selecionado:", selectedContact);
+  // }, [selectedContact]);
+
+  // Função para buscar o nickname no localStorage ao carregar o componente usando o context estava perdendo ao recarregar
   useEffect(() => {
     const storedNickname = localStorage.getItem("nickname");
     if (storedNickname) {
       setNickname(storedNickname);
     }
   }, []); // A lista de dependências vazia garante que isso só acontecerá uma vez, quando o componente for montado
-
-  // Lista de nicknames dos contatos
-  const contacts = ["fulano", "joao", "maria"];
 
   return (
     <>
@@ -27,14 +54,21 @@ export default function Contacts() {
 
         <div className="contacts">
           {contacts.map((contact) => (
-            <div className="contact" key={contact}>
-              <div className="avatar">
-                <DynamicAvatar nickname={contact} />
-              </div>
-              <div className="username">
-                <h3>{contact}</h3>
-              </div>
+            <div
+            className={`contact ${
+              selectedContact === contact.Nick ? "selected" : ""
+            }`}
+            key={contact.id} // Usar o id como chave única
+            onClick={() => handleContactClick(contact)}
+          >
+            <div className="avatar">
+              <DynamicAvatar nickname={contact.Nick} /> {/* Use contact.Nick em vez de contact.Nick */}
             </div>
+            <div className="username">
+              <h3>{contact.Nick}</h3> {/* Use contact.Nick em vez de contact.Nick */}
+            </div>
+          </div>
+            
           ))}
         </div>
 
