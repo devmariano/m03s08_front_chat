@@ -11,6 +11,10 @@ export default function ChatInput() {
   };
 
   const [message, setMessage] = useState("")
+
+  const submitForm = (e) => {
+    setMessage("");
+  }
   
   return (
     <Container>
@@ -18,12 +22,12 @@ export default function ChatInput() {
       <img src={Panic} alt="panic" />
 
       </div>
-      <form className="input-container" >
+      <form className="input-container" onSubmit={submitForm}>
         <input
           type="text"
           placeholder="digite sua mensagem aqui"
           value={message}
-          onChange={e => setMessage(e.value)}
+          onChange={e => setMessage(e.target.value)}
         />
         <button type="submit">
           <IoMdSend />
