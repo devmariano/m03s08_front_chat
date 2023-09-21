@@ -1,32 +1,46 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
+import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
 
-export default function Register() {
+export default function Nickname() {
+  const { setNickname } = useAuth(); // Obtenha a função setNickname do contexto
+  const navigate = useNavigate();
+
+  const [nickname, setLocalNickname] = useState(""); // Estado local para o apelido
+
+  const handleNicknameSubmit = (e) => {
+    e.preventDefault();
+
+    // Valide o apelido aqui
+
+    if (nickname.trim() !== "") {
+      localStorage.setItem("nickname", nickname);
+      setNickname(nickname); // Atualize o estado global com o novo apelido
+      navigate("/"); // Redirecione o usuário para a página de chat
+    } else {
+      // Trate erros ou exiba uma mensagem de validação
+    }
+  };
+
   return (
     <>
       <FormContainer>
-        <form action="">
+        <form onSubmit={handleNicknameSubmit}>
           <div className="brand">
             <img src={Logo} alt="logo" />
             <h1>trindade</h1>
           </div>
-          <input type="text" placeholder="Escolha um apelido" name="username" />
-          <input type="email" placeholder="Digite seu email" name="email" />
           <input
-            type="password"
-            placeholder="Insira uma senha"
-            name="password"
+            type="text"
+            placeholder="Insira seu apelido"
+            name="username"
+            value={nickname}
+            onChange={(e) => setLocalNickname(e.target.value)}
+            minLength="3"
           />
-          <input
-            type="password"
-            placeholder="Repita sua senha"
-            name="confirmPassword"
-          />
-          <button type="submit">Criar usuário</button>
-          <span>
-            Já tem conta ? <Link to="/login">Acesse aqui.</Link>
-          </span>
+          <button type="submit">Entrar</button>
         </form>
       </FormContainer>
     </>
@@ -67,7 +81,7 @@ const FormContainer = styled.div`
     gap: 2rem;
     background-color: #00000076;
     border-radius: 2rem;
-    padding: 3rem 5rem;
+    padding: 5rem;
   }
   input {
     background-color: transparent;

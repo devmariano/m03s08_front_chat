@@ -1,10 +1,21 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 
-
 export default function Chat() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Verifique se o nickname está no localStorage
+    const nickname = localStorage.getItem("nickname");
+
+    if (!nickname) {
+      // Se o nickname não estiver definido, redirecione para a página de login
+      navigate("/login");
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -12,8 +23,7 @@ export default function Chat() {
         <div className="container">
           <Contacts />
 
-            <ChatContainer />
-
+          <ChatContainer />
         </div>
       </Container>
     </>
@@ -28,7 +38,12 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background: linear-gradient(135deg, rgba(2,0,36,1) 0%, rgba(43,8,117,1) 35%, rgba(121,57,189,1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(43, 8, 117, 1) 35%,
+    rgba(121, 57, 189, 1) 100%
+  );
   .container {
     height: 85vh;
     width: 85vw;

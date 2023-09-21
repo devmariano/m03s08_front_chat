@@ -1,57 +1,86 @@
-
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.png";
+import DynamicAvatar from "./DynamicAvatar";
+import { useAuth } from "../context/AuthContext"; // Importe o useAuth do contexto
+import { contacts } from "../data/contacts"; // Importe os contatos
 
 export default function Contacts() {
-  const image = ["https://api.multiavatar.com/4532.svg","https://api.multiavatar.com/12342.svg","https://api.multiavatar.com/12555.svg"]
- 
+  const [nickname, setNickname] = useState(""); // Estado para armazenar o nickname do usuário
+  const { setSelectedContact, selectedContact } = useAuth(); // Adicione setSelectedContact e selectedContact ao contexto
+
+  // const contacts = [
+  //   { 
+  //     id: 1, 
+  //     Nick: "fulano" 
+  //   },
+  //   { 
+  //     id: 2, 
+  //     Nick: "joao" 
+  //   },
+  //   { id: 3, 
+  //     Nick: "maria" 
+  //   },
+  // ];
+
+  const handleContactClick = (contact) => {
+    if (selectedContact === contact.Nick) {
+      setSelectedContact("Todos");
+    } else {
+      setSelectedContact(contact.Nick);
+    }
+  };
+
+  //somente para testar se o selectedcontact esta sendo atribuido ao context
+  // useEffect(() => {
+  //   console.log("Contato selecionado:", selectedContact);
+  // }, [selectedContact]);
+
+  // Função para buscar o nickname no localStorage ao carregar o componente usando o context estava perdendo ao recarregar
+  useEffect(() => {
+    const storedNickname = localStorage.getItem("nickname");
+    if (storedNickname) {
+      setNickname(storedNickname);
+    }
+  }, []); // A lista de dependências vazia garante que isso só acontecerá uma vez, quando o componente for montado
+
   return (
     <>
-     
-        <Container>
-          <div className="brand">
-            <img src={Logo} alt="logo" />
-            <h3>Trindade</h3>
-          </div>
-          <div className="contacts">
+      <Container>
+        <div className="brand">
+          <img src={Logo} alt="logo" />
+          <h3>Trindade</h3>
+        </div>
 
-                <div className="contact">
-                  <div className="avatar">
-                    <img
-                      src={image[0]}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>participante 1</h3>
-                  </div>
-                </div>
-
-                <div className="contact">
-                  <div className="avatar">
-                    <img
-                      src={image[1]}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>participante 2</h3>
-                  </div>
-                </div>
-
-          </div>
-          <div className="current-user">
+        <div className="contacts">
+          {contacts.map((contact) => (
+            <div
+            className={`contact ${
+              selectedContact === contact.Nick ? "selected" : ""
+            }`}
+            key={contact.id} // Usar o id como chave única
+            onClick={() => handleContactClick(contact)}
+          >
             <div className="avatar">
-              <img
-                src={image[2]}
-                alt="avatar"
-              />
+              <DynamicAvatar nickname={contact.Nick} /> {/* Use contact.Nick em vez de contact.Nick */}
             </div>
             <div className="username">
-              <h2>seu username</h2>
+              <h3>{contact.Nick}</h3> {/* Use contact.Nick em vez de contact.Nick */}
             </div>
           </div>
-        </Container>
+            
+          ))}
+        </div>
+
+        <div className="current-user">
+          <div className="avatar">
+            <DynamicAvatar nickname={nickname} />
+          </div>
+          <div className="username">
+            <h2>{nickname}</h2>
+          </div>
+        </div>
+      </Container>
     </>
   );
 }
