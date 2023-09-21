@@ -7,7 +7,9 @@ import PropTypes from "prop-types";
 
 export default function ChatInput({ addMessage }) {
   const [messageText, setMessageText] = useState("");
-  const { nickname, selectedContact } = useAuth(); 
+  const { selectedContact } = useAuth(); 
+
+  const nickname = localStorage.getItem("nickname");
 
   const handlePanicClick = () => {
     // Redirecione para o Google ou para outra funcionalidade quando o botão "Panic" for clicado
